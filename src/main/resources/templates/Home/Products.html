@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product List</title>
+        <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .navbar {
+            background:radial-gradient(gray,silver);
+            padding-top: 5px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: 0px;
+            width:100%;
+            z-index: 1000;
+            height:60px;
+        }
+
+        .navebar title {
+            margin-left:10px;
+            padding:10px;
+            font-size: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1 {
+            font-size: 25px;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0px;
+            margin-left: 10px;
+        }
+
+        .navbar nav {
+            text-align: right;
+            margin: 0;
+            padding: 0px;
+            display: inline-block;
+            flex:1;
+        }
+        .menu-icon {
+            display:none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .navbar nav ul li {
+            list-style: none;
+            display: inline-block;
+            padding: 0 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .navbar nav ul {
+            display: inline-block;
+            overflow: hidden;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+
+        .navbar nav ul li a:hover {
+            color: #fff;
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            justify-content:space-around;
+            position: relative;
+            top:110px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .product-container {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-image {
+            width: 30%;
+            height: 30%;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .product-stock {
+            font-weight: bold;
+            color: #333;
+            display: inline-flex;
+            align-items: center;
+        }
+        .product-stock span{
+            margin-left: 10px;
+        }
+
+        .low-stock {
+            color: #e74c3c; /* Red color for low stock */
+        }
+
+        .order-form {
+            margin-top: 10px;
+        }
+
+        .order-form label {
+            font-weight: bold;
+        }
+
+        .order-form select {
+            padding: 8px;
+            font-size: 14px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .order-form button, .details-button, .return-button button {
+            background:gray;
+            margin: 20px 0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family:'Times New Roman', Times, serif;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .order-form button:hover, .details-button:hover, .return-button button:hover {
+            background: #333;
+        }
+
+        .return-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .no-products {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+        }
+
+        .chosen-message{
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+            color: green;
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .menu-icon {
+                width: 30px;
+                height:30px;
+                position: absolute;
+                cursor: pointer;
+                display: block;
+            }
+            .navbar nav ul {
+                position: absolute;
+                display: grid;
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                top: 65px;
+                right: 0;
+                background: #333;
+                width: fit-content;
+                max-height: 0px;
+                overflow: hidden;
+                transition: max-height 0.5s;
+                margin: 0;
+                padding-left: 0;
+            }
+
+            .navbar nav ul.active {
+            max-height: 300px; /* Adjust as needed to show the menu */
+                }
+
+                .navbar nav ul li a:hover{
+            color: black;
+        }
+
+            nav ul li {
+                display: flex;
+                text-align: left;
+                color: black;
+                cursor: default;
+                padding: 10px;
+                margin-right: 0;
+                background-color: #746f6f;
+            }
+
+            nav ul li:hover{
+                background-color: silver;
+            }
+
+            .Username:hover{
+                background-color: #746f6f;
+            }
+
+            nav ul li a:hover{
+                color:inherit;
+            }
+
+            .product-container {
+                padding-bottom: 10px;
+                width:auto;
+            }
+            .product-image{
+                width:80%;
+                height: 80%;
+            }
+
+            .order-form select {
+                width: 50%;
+                max-width: 50%;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="navbar">
+                <div class="title">
+                    <h1>Gcommerce</h1>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a
+                                th:href="@{/Home/Categories/user/{userId}(userId=${userId})}">Home</a></li>
+                        <li><a
+                                th:href="@{/Home/OrderItems/user/{userId}(userId=${userId})}">Your
+                                Order</a></li>
+                        <li><a th:href="@{/Home/user-Logout}">Log Out</a></li>
+                        <li class="Username" th:text="${user.username}"></li>
+                    </ul>
+                </nav>
+                <img th:src="@{/static/images2/menu.png}" class="menu-icon"
+                    onclick="menutoggle()">
+
+            </div>
+        </div>
+        <div class="container">
+            <h1>Product List</h1>
+
+            <!-- Product List -->
+            <div th:if="${not #lists.isEmpty(products)}"
+                th:each="product : ${products}" class="product-container">
+                <h2 th:text="${product.name}"></h2>
+                <img th:if="${product.imageFileName != null}"
+                    th:src="@{'/uploads/' + ${product.imageFileName}}"
+                    th:alt="${product.name}"
+                    class="product-image">
+                <p class="product-description"
+                    th:text="${product.description}"></p>
+                <p>Price: <span class="product-price"
+                        th:text="${#numbers.formatDecimal(product.price, 0, 2)} + ' $ '"></span></p>
+                <div class="product-stock"><p>Stock:</p>
+                    <span th:text="${product.stock}"
+                        th:class="${product.stock < 3} ? 'low-stock' : ''"></span></div>
+                <p><span class="Almost finished"
+                        th:text="${product.stock < 3 && product.stock > 0 ? 'Almost finished' : ''}"></span></p>
+                <p><span class="It is finished"
+                        th:text="${product.stock <= 0 ? 'It is finished' : ''}"></span></p>
+                <!-- Order Form -->
+                <form
+                    th:action="@{/Home/OrderItemSubmission/user/{userId}(userId=${userId})}"
+                    method="post" class="order-form"
+                    onsubmit="return checkStock(document.getElementById('quantity_${product.id}'))">
+                    
+                    <div class="orderitemclass" th:object="${orderitem}">
+                        <input type="hidden" name="productId"
+                            th:value="${product.id}">
+                        <label for="quantity">Select Quantity:</label>
+
+                        <select id="quantity_${product.id}" name="quantity"
+                            th:value="*{quantity}"
+                            th:data-stock="${product.stock}"
+                            th:data-product-id="${product.id}"
+                            onchange="checkStock(this)">
+                            <option
+                                th:each="i : ${#numbers.sequence(1, 10)}"
+                                th:value="${i}" th:text="${i}"></option>
+                        </select>
+                          <!--th:if="${session.submittedProductId != null}-->
+                          <!--<div th:if="${session.submittedProductId == product.id}" class="chosen-message">
+                            <p>The item is chosen in order do you want to change the quantity?</p>
+                        </div>-->
+                        <div th:if="${session.submittedProductIds != null and session.submittedProductIds.contains(product.id)}" class="chosen-message">
+                            <p>The item is chosen in order. Do you want to change the quantity?</p>
+                        </div>
+                        
+                        <div><a>
+                                <button id = "add_order"
+                                type="submit" >Add to Order</button>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+                <br>
+            </div>
+
+            <!-- No Products Message -->
+            <div th:if="${#lists.isEmpty(products)}" class="no-products">
+                <p>No products found for this category.</p>
+            </div>
+
+        </div>
+        <script>
+            let MenuItems = document.getElementById("MenuItems");
+            let add_order = document.getElementById("add_order");
+
+            function menutoggle() {
+                MenuItems.classList.toggle("active");
+            }
+        
+            function checkStock(selectElement) {
+                let quantity = parseInt(selectElement.value);
+                let stockAmount = parseInt(selectElement.dataset.stock);
+                let productId = selectElement.dataset.productId;
+                let errorId = "stockerror_" + productId;
+                let existingError = document.getElementById(errorId);
+
+            if (quantity > stockAmount) {
+                if (!existingError) {
+                    let stockError = document.createElement('div');
+                    stockError.id = errorId;
+                    stockError.innerHTML = '<p>Not enough stock available</p>';
+                    selectElement.parentNode.insertBefore(stockError, selectElement.nextSibling);
+                    stockError.style.cssText = "color: red; font-family:'Arial', sans-serif; font-size: 14px;";
+                }
+                return false;
+            } else {
+                if (existingError) {
+                    existingError.remove();
+                    }
+                    return true;
+            }
+        }
+
+
+        </script>
+    </body>
+
+    </body>
+</html>

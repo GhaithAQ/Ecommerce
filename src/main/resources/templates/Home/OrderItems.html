@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>E-commerce Page</title>
+        <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            line-height: 1.4; /* Adjust line-height for more compact text */
+            padding: 10px; /* Reduced padding for body */
+            color: #333; /* Default text color */
+        }
+
+        /* Container for each product */
+        .product-container {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px; /* Space between each product */
+            padding: 15px; /* Reduced padding */
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Product name styles */
+        .product-name {
+            font-size: 20px; /* Reduced font size */
+            margin-bottom: 8px; /* Reduced margin */
+            color: #333;
+        }
+
+        /* Image styles */
+        .product-image {
+            max-width: 20%;
+            height: auto;
+            display: block;
+            margin-bottom: 8px; /* Reduced margin */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Description styles */
+        .product-description {
+            color: #666;
+            margin-bottom: 8px; /* Reduced margin */
+        }
+
+        /* Price styles */
+        .product-price {
+            font-size: 16px; /* Reduced font size */
+            font-weight: bold;
+            color: #f60;
+        }
+
+        /* Stock/Quantity styles */
+        .product-stock {
+            color: #090;
+        }
+
+        /* Total order styles */
+        .total-order {
+            font-size: 18px; /* Reduced font size */
+            font-weight: bold;
+            margin-top: 15px; /* Reduced margin */
+            padding: 15px; /* Reduced padding */
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Button styles */
+        button {
+            padding: 8px 16px; /* Reduced padding */
+            font-size: 14px; /* Reduced font size */
+            background-color: #f60;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d9534f; /* Darken the button on hover */
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .product-container {
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+
+            .product-name {
+                font-size: 18px; /* Adjust font size for smaller screens */
+            }
+
+            .product-price {
+                font-size: 14px; /* Adjust font size for smaller screens */
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <!-- Loop through each order item -->
+        <div th:each="orderitem:${orderitems}" class="product-container">
+            <h2 class="product-name" th:text="${orderitem.product.name}"></h2>
+
+            <!-- Adjust image size -->
+            <img th:if="${orderitem.product.imageFileName != null}"
+                th:src="@{/uploads/{fileName}(fileName=${orderitem.product.imageFileName})}"
+                th:alt="${orderitem.product.imageFileName}"
+                class="product-image">
+
+            <p class="product-description"
+                th:text="${orderitem.product.description}"></p>
+            <p>Price: <span class="product-price"
+                    th:text="${#numbers.formatDecimal(orderitem.product.price, 0, 2)}"></span></p>
+            <p>Quantity: <span class="product-stock"
+                    th:text="${orderitem.quantity}"></span></p>
+
+        </div>
+
+        <!-- Total order section -->
+        <div class="total-order">
+            <p>Total Order: <span th:text="${Total}"></span></p>
+            <div class="total-order">
+                <a
+                    th:href="@{/Home/submitOrder/user/{userId}(userId=${userId})}"><button>Submit
+                        Order</button></a>
+            </div>
+            <div class="total-order">
+                <a
+                    th:href="@{/Home/Categories/user/{userId}(userId=${userId})}"><button>back
+                        to categories</button></a>
+            </div>
+        </div>
+    </body>
+</html>

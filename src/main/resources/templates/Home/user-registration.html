@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; /* Prevents scrolling the entire page */
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 100vh;
+            overflow-y: auto; /* Allows scrolling within the form */
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        button[type="button"], button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button[type="button"]:hover, button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .address-header h4 {
+            margin: 0;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .address-container {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form th:action="@{/Home/SubmitionUserInfo}" th:object="${user}" method="POST">
+
+            <h2>Register</h2>
+
+            <div>
+                <label>Username:</label>
+                <input type="text" placeholder="Username" th:field="*{username}">
+                <p class="error-message" th:errors="*{username}"></p>
+            </div>
+
+            <div>
+                <label>First Name:</label>
+                <input type="text" placeholder="First name" th:field="*{first_name}">
+                <p class="error-message" th:errors="*{first_name}"></p>
+            </div>
+
+            <div>
+                <label>Email:</label>
+                <input type="email" placeholder="Email" th:field="*{email}">
+                <p class="error-message" th:errors="*{email}"></p>
+            </div>
+
+            <div>
+                <label>Password:</label>
+                <input type="password" placeholder="Password" th:field="*{password}">
+                <p class="error-message" th:errors="*{password}"></p>
+            </div>
+
+            <div>
+                <label>Password Confirmation:</label>
+                <input type="password" placeholder="Confirm password" th:field="*{confirmation_password}">
+                <p class="error-message" th:errors="*{confirmation_password}"></p>
+            </div>
+            
+            <div id="address-container">
+                <div th:each="address, iterStat : *{addresses}" id="address-[[${iterStat.index}]]">
+                    <h4 th:text="'Address ' + (${iterStat.index} + 1)"></h4>
+                    <div>
+                        <label>Address Line 1:</label>
+                        <input type="text" placeholder="Address Line 1" th:field="*{addresses[__${iterStat.index}__].address_line1}">
+                        <p class="error-message" th:errors="*{addresses[__${iterStat.index}__].address_line1}"></p>
+                    </div>
+
+                    <div>
+                        <label>Address Line 2:</label>
+                        <input type="text" placeholder="Address Line 2" th:field="*{addresses[__${iterStat.index}__].address_line2}">
+                        <p class="error-message" th:errors="*{addresses[__${iterStat.index}__].address_line2}"></p>
+                    </div>
+
+                    <div>
+                        <label>City:</label>
+                        <input type="text" placeholder="City" th:field="*{addresses[__${iterStat.index}__].city}">
+                        <p class="error-message" th:errors="*{addresses[__${iterStat.index}__].city}"></p>
+                    </div>
+
+                    <div>
+                        <label>State:</label>
+                        <input type="text" placeholder="State" th:field="*{addresses[__${iterStat.index}__].state}">
+                        <p class="error-message" th:errors="*{addresses[__${iterStat.index}__].state}"></p>
+                    </div>
+
+                    <div>
+                        <label>Postal Code:</label>
+                        <input type="text" placeholder="Postal Code" th:field="*{addresses[__${iterStat.index}__].postal_code}">
+                        <p class="error-message" th:errors="*{addresses[__${iterStat.index}__].postal_code}"></p>
+                    </div>
+
+                    <div>
+                        <label>Country:</label>
+                        <input type="text" placeholder="Country" th:field="*{addresses[__${iterStat.index}__].country}">
+                        <p class="error-message" th:errors="*{addresses[__${iterStat.index}__].country}"></p>
+                    </div>
+                    <button type="button" onclick="removeAddress('address-[[${iterStat.index}]]')">Remove Address</button>
+                    <hr>
+                </div>
+            </div>
+            <button type="button" onclick="addAddress()">Add Address</button>
+            <button type="submit">Submit</button>
+
+        </form>
+        <a th:href="@{/Home/user-Login}">
+            <button type="button" button>Log In page</button>
+        </a>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let dynamicAddressIndex = /*[[${#lists.size(user.addresses)}]]*/ 0;
+    
+        function addAddress() {
+            const container = document.getElementById('address-container');
+            const newIndex = dynamicAddressIndex++;
+    
+            const newAddress = document.createElement('div');
+            newAddress.setAttribute('id', 'address-' + newIndex);
+            newAddress.innerHTML = `
+                <h4>Address ${newIndex + 1}</h4>
+                <div>
+                    <label>Address Line 1:</label>
+                    <input type="text" placeholder="Address Line 1" name="addresses[${newIndex}].address_line1" />
+                </div>
+                <div>
+                    <label>Address Line 2:</label>
+                    <input type="text" placeholder="Address Line 2" name="addresses[${newIndex}].address_line2" />
+                </div>
+                <div>
+                    <label>City:</label>
+                    <input type="text" placeholder="City" name="addresses[${newIndex}].city" />
+                </div>
+                <div>
+                    <label>State:</label>
+                    <input type="text" placeholder="State" name="addresses[${newIndex}].state" />
+                </div>
+                <div>
+                    <label>Postal Code:</label>
+                    <input type="text" placeholder="Postal Code" name="addresses[${newIndex}].postal_code" />
+                </div>
+                <div>
+                    <label>Country:</label>
+                    <input type="text" placeholder="Country" name="addresses[${newIndex}].country" />
+                </div>
+                <button type="button" onclick="removeAddress('address-${newIndex}')">Remove Address</button>
+                <hr>
+            `;
+    
+            container.appendChild(newAddress);
+        }
+    
+        function removeAddress(id) {
+            const address = document.getElementById(id);
+            const index = parseInt(id.split('-')[1]);
+            dynamicAddressIndex--;
+    
+            // Remove the address from the DOM
+            address.remove();
+    
+            // Update indices of remaining addresses in the DOM
+            const addressDivs = document.querySelectorAll('#address-container > div');
+            addressDivs.forEach((div, idx) => {
+                if (idx >= index) {
+                    const inputs = div.querySelectorAll('input, select');
+                    inputs.forEach(input => {
+                        const name = input.getAttribute('name');
+                        const newName = name.replace(/\[\d+\]/, `[${idx}]`);
+                        input.setAttribute('name', newName);
+                    });
+    
+                    // Update label for each address
+                    div.querySelector('h4').textContent = `Address ${idx + 1}`;
+                }
+            });
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>
+
+
+
+        <!--<form th:action="@{/form}" th:object="${myForm}" method="post">
+            <div th:each="item, iterStat : *{items}">
+                <input type="text" th:field="*{items[__${iterStat.index}__]}" />
+            </div>
+            <button type="submit">Submit</button>-->

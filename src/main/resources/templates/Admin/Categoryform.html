@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{/Admin/submissionCategory}" th:object="${category}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Category Name: </label>
+        <br>
+        <input type="text" placeholder="name" th:field="*{name}">
+        <br><br>
+        <p><span style="color:red" th:errors="*{name}"></span></p>
+        <br>
+        <label>Category Description: </label>
+        <br>
+        <input type="text" placeholder="description" th:field="*{description}">
+        <br><br>
+        <p><span style="color:red" th:errors="*{description}"></span></p>
+        <br>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>

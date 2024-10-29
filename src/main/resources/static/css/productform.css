@@ -1,0 +1,137 @@
+body {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(
+    to right,
+    #1c1c1c,
+    #4a4a4a,
+    #727272,
+    #9c9c9c,
+    #c0c0c0
+  );
+
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.container:hover {
+  transform: scale(1.02);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: 0.5s;
+}
+
+.required {
+  margin-bottom: 5px;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 3px;
+  display: block;
+  color: #333;
+  font-size: 14px;
+}
+
+.field,
+.descriptiontext,
+.dropcategorylist {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+.field:focus,
+.descriptiontext:focus {
+  background-color: #9c9c9c;
+}
+
+.field:focus::placeholder,
+.descriptiontext:focus::placeholder {
+  color: #1c1c1c;
+  font-weight: 400;
+}
+
+.descriptiontext {
+  height: 100px;
+  resize: none;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.addaproduct,
+.return-link,
+.file-input-button {
+  background-color: #808080;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  width: 70%;
+  box-sizing: border-box;
+}
+
+.addaproduct:hover,
+.return-link:hover,
+.file-input-button:hover {
+  background-color: #666666;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-input-button {
+  margin-top: 5px;
+}
+
+@media (min-width: 600px) {
+  .container {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .addaproduct,
+  .return-link,
+  .file-input-button {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+  }
+}

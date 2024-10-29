@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Categories</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 40px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            width: calc(25% - 40px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card h4 {
+            color: #444;
+            font-size: 1.5em;
+            margin: 0 0 10px 0;
+        }
+
+        .category-card p {
+            color: #777;
+            font-size: 1em;
+            margin: 0 0 20px 0;
+        }
+
+        .category-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-card a:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .category-card {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-card {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Categories</h1>
+    <div class="container" th:each="category : ${categories}">
+        <div class="category-card">
+            <h4 th:text="${category.name}"></h4>
+            <p th:text="${category.description}"></p>
+            <div>
+                <a th:href="@{/Home/Products/category/{categoryId}/user/{userId}(categoryId=${category.id}, userId=${userId})}">View Products</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

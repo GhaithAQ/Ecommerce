@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product form</title>
+        <link th:href="@{/static/css/productform.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <form th:action="@{/Admin/submitProduct}" th:object="${product}"
+                method="POST" enctype="multipart/form-data">
+                <div class="required">
+                    <label>Product name: </label>
+                    <br>
+                    <input class="field" type="text" placeholder="product name"
+                        th:field="*{name}">
+                    <br><br>
+                    <p class="error" th:errors="*{name}"></p>
+                </div>
+
+                <div class="required">
+                    <label>Description: </label>
+                    <textarea class="descriptiontext" type="text"
+                        placeholder="product description"
+                        th:field="*{description}"></textarea>
+                    <br><br>
+                    <p class="error" th:errors="*{description}"></p>
+                </div>
+
+                <div class="required">
+                    <label>Price</label>
+                    <br>
+                    <input class="field" type="text" placeholder="product price"
+                        th:field="*{price}">
+                    <br><br>
+                    <p class="error" th:errors="*{price}"></p>
+                </div>
+
+                <div class="required">
+                    <label>Stock quantity: </label>
+                    <br>
+                    <input class="field" type="number"
+                        placeholder="stock quantity" th:field="*{stock}">
+                    <br><br>
+                    <p class="error" th:errors="*{stock}"></p>
+                </div>
+
+                <div class="required">
+                    <label for="image">Upload Product Image:</label>
+                    <input type="file" id="image" name="image"
+                        class="file-input" />
+                    <div class="button-container">
+                        <label for="image" class="file-input-button">Choose
+                            File</label>
+                    </div>
+
+                    <div>
+                        <p class="error" th:errors="*{ImageSize}"></p>
+                    </div>
+                </div>
+
+                <div class="required">
+                    <label>Product Category: </label>
+                    <br>
+                    <select th:field="*{category}" class="dropcategorylist">
+                        <option th:each="tempCategory:${categories}"
+                            th:value="${tempCategory.id}"
+                            th:text="${tempCategory.name}"></option>
+                    </select>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" class="addaproduct">Add a
+                        Product</button>
+                </div>
+                <div class="button-container">
+                    <a th:href="@{/Admin/Categories}" class="return-link">Return
+                        To Category</a>
+                </div>
+            </form>
+
+        </div>
+    </body>
+</html>
